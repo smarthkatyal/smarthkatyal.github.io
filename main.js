@@ -49,7 +49,7 @@ function preload() {
 }
 
 function setup() {
-
+   
     //set the canvas size
     createCanvas(1000,500);
     slider = createSlider(0, 706, 0,0.1);
@@ -92,7 +92,9 @@ function setup() {
     
     //Calculate Levels
     //for(var index1=1;index1<wind_table.getRowCount();index1++)
-
+    createP('This visualization has been created as part of CS7DS4 - Data Visualization by Smarth Katyal(17306092)');
+    createP('For information & questions about this visualization please email katyals@tcd.ie');
+    createP('Code location: https://github.com/smarthkatyal/smarthkatyal.github.io');
 }
 
 function draw() { 
@@ -123,7 +125,7 @@ function draw() {
          index=index+playspeed;
     }
     index=Math.round(index*10)/10;
-    text("Speed: "+ playspeed ,50 , 480,200, 20);
+    text("Speed: "+ playspeed +" x " ,50 , 480,200, 20);
     //console.log("Index: "+index);
     slider.value(index);
     var direction = wind_table.getString(round(index),1);
@@ -148,6 +150,8 @@ function draw() {
     fill(255,255,255);
     //image(compass, 0, height/2, compass.width/2, compass.height/2);
     //Mark compass directions
-    drawCompass(wind,speed,direction);
-         
+    var dt=wind_table.getString(round(index),0)
+    drawCompass(wind,speed,direction,dt);
+    drawPanels(index);
+    
 }

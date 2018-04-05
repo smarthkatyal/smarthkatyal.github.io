@@ -55,8 +55,10 @@ function drawLevels(){
 function drawVector(v,loc,scale){
     push();
     var arrowsize = 4;
+    
     translate(loc.x,loc.y);
-    stroke(255);
+    stroke(140,200,80);
+    strokeWeight(3);
     rotate(v.heading());
 
     var len = v.mag() * scale;
@@ -67,16 +69,19 @@ function drawVector(v,loc,scale){
 }
 
 
-function drawCompass(wind,speed,direction){
-    text("North", 90 , 30, 200, 20);
-    text("East", 160 , 100, 200, 20);
-    text("West", 20 , 100, 200, 20);
-    text("South", 90 , 170, 200, 20);
+function drawCompass(wind,speed,direction,dt){
+    push();
+    fill(0,255,0);
+    text("North", 90 , 10, 200, 20);
+    pop();
+    text("East", 160 , 80, 200, 20);
+    text("West", 20 , 80, 200, 20);
+    text("South", 90 , 150, 200, 20);
     // Draw an arrow representing the wind force
-    drawVector(wind, createVector(100,110,0),speed*15);
-    text("Wind Direction: "+ direction, 40 , 190, 200, 20);
-    text("Wind Speed: "+ speed + " m/sec", 40 , 205, 200, 20);
-
+    drawVector(wind, createVector(100,90,0),speed*15);
+    text("Wind Direction: "+ direction + " degree", 40 , 170, 200, 20);
+    text("Wind Speed: "+ speed + " m/sec", 40 , 185, 200, 20);
+    text("Date & Time: "+ dt, 40 , 200, 200, 20);
 }
 
 function drawKey(){
@@ -139,4 +144,14 @@ function markFactoryPositions(coordsFactory){
    }
   pop();
   
+}
+
+function drawPanels(index){
+    push();
+    strokeWeight(2);
+    stroke(255, 204, 100);
+    line(220,0,220,450)
+    line(220,450,1000,450)
+    pop();
+    text("Slider Frame: "+ round(index) , 860,475);
 }
