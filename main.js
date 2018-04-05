@@ -87,7 +87,7 @@ function setup() {
     //initialize our particle system
     //ps = new ParticleSystem(0,createVector(width / 2, height - 60),particle_texture);
     for(var i=0;i<count;i++){
-      ps[i] = new ParticleSystem(i,createVector(coordsFactory[i][0], coordsFactory[i][1]),particle_texture);
+      ps[i] = new ParticleSystem(i,createVector(coordsFactory[i][0], height-coordsFactory[i][1]),particle_texture);
     }
     
     //Calculate Levels
@@ -95,22 +95,12 @@ function setup() {
 
 }
 
-function draw() {
+function draw() { 
     background(0);
-    var dx = map(mouseX,0,width,-0.2,0.2);
-    var dy = map(mouseY,0,height,-0.4,0.4);
-    //get angle in radians from degree
-    //var angle = radians(Number(weather.current.wind_degree));
-    //create vector
-    //p5.Vector.fromAngle(124);
-    //var wind = createVector(dx,dy);
-    
     drawSensors();
+    markFactoryPositions(coordsFactory);
     var index = slider.value();
-    //console.log(wind_table[0][0]);
     var date = Date.parse(wind_table.getString(round(index),0))
-    var temp;
-    console.log(date);
     for(var index2=0;index2<sensor_table.getRowCount();index2++){
         if(Date.parse(sensor_table.getString(index2,2))==date){
           if(sensor_table.getString(index2,0)=='AGOC-3A')
@@ -125,8 +115,8 @@ function draw() {
             console.log("Unidentified "+index2 +" Date: "+date);
         }
     }
-    
     drawLevels();
+    drawKey();
     if(playFlag ==1
        &&index+playspeed>=0 
        && index+playspeed<=705){
@@ -153,18 +143,11 @@ function draw() {
           ps[j].addParticle();
       }
       fill(255,255,0);
-      text(coordsFactory[j][2], coordsFactory[j][0], coordsFactory[j][1]+10,200, 20);
+      text(coordsFactory[j][2], coordsFactory[j][0]-20, height-coordsFactory[j][1]-20,200, 20);
     }
     fill(255,255,255);
     //image(compass, 0, height/2, compass.width/2, compass.height/2);
     //Mark compass directions
-    text("North", 200 , 280, 200, 20);
-    text("East", 270 , 350, 200, 20);
-    text("West", 130 , 350, 200, 20);
-    text("South", 200 , 420, 200, 20);
-    // Draw an arrow representing the wind force
-    drawVector(wind, createVector(210,360,0),speed*15);
-    text("Wind Direction: "+ direction, 150 , 435, 200, 20);
-    text("Wind Speed: "+ speed + " m/sec", 150 , 450, 200, 20);
-      
+    drawCompass(wind,speed,direction);
+         
 }
