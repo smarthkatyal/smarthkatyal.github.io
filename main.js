@@ -52,7 +52,7 @@ function setup() {
    
     //set the canvas size
     createCanvas(1000,500);
-    slider = createSlider(0, 706, 0,0.1);
+    slider = createSlider(0, 705, 0,0.1);
     slider.position(145, 470);
     slider.style('width', '707px');
     
